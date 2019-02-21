@@ -1,0 +1,78 @@
+<!doctype>
+<html>
+<head>
+
+</head>
+<body>
+<div id="element">
+
+</div>
+
+<div id="element1">
+
+</div>
+
+<div id="element2">
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+<!--Mix of javascript and jquery-->
+<script type="text/javascript">
+	if($('#element div').length<=0){ 
+		create_content(callback_function); 
+	}
+	
+	function create_content(callback){ 
+		$('#element').html('<div>my new content 1</div>'); 
+		callback();
+	}
+
+	function callback_function()
+	{
+		$('#element div').addClass('add-this-to-new-content');
+	}
+</script>
+
+<!--Pure javascript-->
+<script type="text/javascript">
+	if(document.getElementById('element1').firstElementChild == null || document.getElementById('element1').firstElementChild.length<=0){ 
+		create_content(callback_function); 
+	}
+	
+	function create_content(callback){ 
+		document.getElementById('element1').innerHTML = '<div>my new content 2</div>'; 
+		callback();
+	}
+
+	function callback_function()
+	{
+		document.getElementById('element1').firstElementChild.classList.add('add-this-to-new-content');
+	}
+</script>
+
+<!--Pure javascript-->
+<script type="text/javascript">
+	$(document).ready(function(){
+		if($('#element2 div').length <=0 ){ 
+			
+			$.when(create_content()).then(callback_function());
+			<!-- create_content().then(function(){ -->
+				<!-- callback_function(); -->
+			<!-- });  -->
+		}
+	
+		function create_content(){ 
+			$('#element2').html('<div>my new content 3</div>');
+			return;
+		}
+
+		function callback_function()
+		{
+			$('#element2 div').addClass('add-this-to-new-content');
+		}
+	});
+</script>
+</body>
+</html>
